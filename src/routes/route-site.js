@@ -1,3 +1,5 @@
+'use strict';
+
 const express        = require('express'),
       router         = express.Router(),
       controllerSite = require('../controllers/controller-site');

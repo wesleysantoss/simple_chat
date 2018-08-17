@@ -1,3 +1,5 @@
+'use strict';
+
 const modelUser = require('../models/model-user'),
       bcrypt    = require('bcrypt');
 

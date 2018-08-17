@@ -19,6 +19,7 @@ $formRegister.addEventListener("submit", async function(e){
             alert('Oops, ocorreu algum erro. Tente novamente mais tarde');
         }else{
             alert('Cadastro realizado com sucesso');
+            window.location = "/";
         }
     } catch (e){
         alert('Oops, ocorreu algum erro. Tente novamente mais tarde');
