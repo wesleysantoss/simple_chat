@@ -7,21 +7,21 @@ const express    = require('express'),
       routeSite  = require('./routes/route-site'),
       routeChat  = require('./routes/route-chat');
 
-// Configura a view engine.
+// configure the view engine.
 app.set('view engine', 'ejs');
 app.set('views', 'public/views')
 
-// Configura em qual diretorio está os arquivos estaticos.
+// configure directory static.
 app.use(express.static('public/assets/'));
 
-// Transforma em JSON todo o body.
+// parse json body.
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Gera um console.log de todas as requisições.
+// all requisition log.
 app.use(logger('dev'));
 
-// Carrega as rotas do site.
+// load the routers.
 app.use('/', routeSite);
 app.use('/chat', routeChat);
 

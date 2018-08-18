@@ -5,8 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Simple Chat - Login</title>
+    <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
 </head>
 <body>
-    <h3>Login</h3>
+    <div class="container">
+        <div class="row d-flex justify-content-end">
+            <div class="col-md-5">
+                <div class="jumbotron mt-5">
+                    <form action="/user" method="post" id="form-login">
+                        <h3 class="text-center">LOGIN</h3>
+                        <p class="text-center">Se conecte agora mesmo :D</p>
+                        <div class="form-group">
+                            <label for="name">E-mail</label>
+                            <input type="text" class="form-control" id="email" placeholder="Insira seu e-mail">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Senha</label>
+                            <input type="password" class="form-control" id="password" placeholder="Escolha uma senha">
+                        </div>
+                        <button type="submit" class="btn btn-success float-right">Entrar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/site/index.js"></script>
 </body>
 </html>

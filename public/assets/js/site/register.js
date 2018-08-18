@@ -11,10 +11,20 @@ $formRegister.addEventListener("submit", async function(e){
           name      = document.querySelector("#name").value,
           email     = document.querySelector("#email").value,
           password  = document.querySelector("#password").value,
-          jsonBody  = JSON.stringify({name, email, password});
+          body      = JSON.stringify({name, email, password});
 
+
+    const request = {
+        method,
+        headers: new Headers({
+            'Content-Type': 'application/json',
+            'Accept': 'text/html,application/json'
+        }),
+        body
+    };
+    
     try {
-        const result = await requestAjax(action, method, jsonBody); // utils.js
+        const result = await fetch(action, request);
         if(result.status === 'error') {
             alert('Oops, ocorreu algum erro. Tente novamente mais tarde');
         }else{
