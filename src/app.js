@@ -1,6 +1,7 @@
 'use strict';
 
 const express    = require('express'),
+      session    = require('express-session'),
       app        = express(),
       bodyParser = require('body-parser'),
       logger     = require('morgan'),
@@ -13,6 +14,14 @@ app.set('views', 'public/views')
 
 // configure directory static.
 app.use(express.static('public/assets/'));
+
+// set the config session.
+app.use(session({
+      secret: 'session_login',
+      resave: false,
+      saveUninitialized: true,
+      cookie: { secure: false}
+}))
 
 // parse json body.
 app.use(bodyParser.json());

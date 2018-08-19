@@ -4,11 +4,29 @@ const modelUser = require('../models/model-user'),
       bcrypt    = require('bcrypt');
 
 module.exports = {
-    index: (req, res, next) => {
-        res.render('site');
-    },
-    register: (req, res, next) => {
-        res.render('site/register');
+    index: (req, res, next) => res.render('site'),
+    register: (req, res, next) => res.render('site/register'),
+    authenticate: async (req, res, next) => {
+        const {email, password} = req.body;
+
+        try {
+            const user = await modelUser.find({email});
+
+            if(user.length) {
+                const result = await bcrypt.compare(password, user[0].password);
+
+                if(!result) {
+                    res.send({status: "error", message: "incorrect password"});
+                }else{
+                    req.session.email = email;
+                    res.send({status: "success", message: "successful login"});
+                }
+            }else{
+                res.send({status: "error", message: "not found user"});
+            }
+        } catch (err) {
+            res.send({status: "error", message: err});
+        }
     },
     allUsers: async (req, res, next) => {
         try {

@@ -5,9 +5,8 @@ const $formRegister = document.querySelector('#form-register');
 // -----------------------------------------------------------------------------------
 $formRegister.addEventListener("submit", async function(e){
     e.preventDefault();
-    const $this     = this,
-          action    = $this.getAttribute('action'),
-          method    = $this.getAttribute('method'),
+    const action    = $formRegister.getAttribute('action'),
+          method    = $formRegister.getAttribute('method'),
           name      = document.querySelector("#name").value,
           email     = document.querySelector("#email").value,
           password  = document.querySelector("#password").value,
@@ -24,8 +23,10 @@ $formRegister.addEventListener("submit", async function(e){
     };
     
     try {
-        const result = await fetch(action, request);
-        if(result.status === 'error') {
+        const result     = await fetch(action, request);
+        const resultJson = await result.json();
+
+        if(resultJson.status === 'error') {
             alert('Oops, ocorreu algum erro. Tente novamente mais tarde');
         }else{
             alert('Cadastro realizado com sucesso');

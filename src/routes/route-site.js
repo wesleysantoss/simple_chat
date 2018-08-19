@@ -6,7 +6,7 @@ const express        = require('express'),
 
 router.get('/', controllerSite.index);
 router.get('/register', controllerSite.register);
-
+router.post('/authenticate', controllerSite.authenticate);
 router.get('/users', controllerSite.allUsers);
 router.post('/user', controllerSite.createUser);
 router.put('/user/:id', controllerSite.editUser);
