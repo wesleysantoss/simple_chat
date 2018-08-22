@@ -5,8 +5,11 @@ const express        = require('express'),
       controllerChat = require('../controllers/controller-chat');
 
 const verifyLogin = (req, res, next) => {
-    if(req.session.email) next();
-    res.redirect('/');
+    if(req.session.email){
+        next();
+    }else{
+        res.redirect('/');
+    } 
 }
 
 router.get('/', verifyLogin, controllerChat.index);

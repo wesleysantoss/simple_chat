@@ -1,0 +1,39 @@
+:root {
+    --branco: white;
+    --branco-claro: #ecf0f1;
+    --roxo-claro: #9b59b6;
+    --roxo-claro-v2: #9c88ff;
+    --preto-claro: #353b48;
+    --preto-claro-v2: #2f3640;
+}
+
+.bg-preto-claro {background: var(--preto-claro)}
+.bg-preto-claro-v2 {background: var(--preto-claro-v2)}
+.bg-roxo-claro {background: var(--roxo-claro)}
+.bg-gradient-roxo {background-image: linear-gradient(to right bottom, #a29bfe, #948bf9, #877cf3, #7a6ced, #6c5ce7);}
+
+.color-roxo-claro-v2 {color: var(--roxo-claro-v2)}
+
+.font-1-3{font-size: 1.3rem;}
+
+.list-user {
+    border-right: 2px solid var(--preto-claro-v2);
+    color: white;
+}
+
+.text-area-v1 {
+    border-radius: 10px;
+    height: 100px;
+    width: 100%;
+}
+
+.div-bottom{
+    position: absolute; 
+    bottom: 10px
+}
+
+.other-message{
+    background: var(--preto-claro-v2);
+    border-radius: 15px;
+    color: var(--branco-claro);
+}
