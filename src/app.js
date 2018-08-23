@@ -3,6 +3,8 @@
 const express    = require('express'),
       session    = require('express-session'),
       app        = express(),
+      http       = require('http').Server(app),
+      io         = require('socket.io')(http),
       bodyParser = require('body-parser'),
       logger     = require('morgan'),
       routeSite  = require('./routes/route-site'),
@@ -10,7 +12,7 @@ const express    = require('express'),
 
 // configure the view engine.
 app.set('view engine', 'ejs');
-app.set('views', 'public/views')
+app.set('views', 'public/views');
 
 // configure directory static.
 app.use(express.static('public/assets/'));
@@ -34,4 +36,22 @@ app.use(logger('dev'));
 app.use('/', routeSite);
 app.use('/chat', routeChat);
 
-module.exports = app;
+let usersOnline = [];
+
+io.on('connection', socket => {
+      socket.on('newUser-client-serve', data => {
+            const {email, message} = data;
+            if(!usersOnline.includes(email)){
+                  socket.broadcast.emit('eventUser-serve-client', message);
+                  usersOnline.push(email);
+            }
+      });
+
+      socket.on('userLogout-client-serve', data => {
+            const {email, message} = data;
+            usersOnline = usersOnline.filter(e => e != email);
+            socket.broadcast.emit('eventUser-serve-client', message);
+      })
+})
+
+module.exports = http;

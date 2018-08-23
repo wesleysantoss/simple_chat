@@ -19,6 +19,7 @@ module.exports = {
                     res.send({status: "error", message: "incorrect password"});
                 }else{
                     req.session.email = email;
+                    req.session.name  = user[0].name;
                     res.send({status: "success", message: "successful login"});
                 }
             }else{

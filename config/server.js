@@ -1,5 +1,5 @@
 'use strict';
 
-const app = require('../src/app');
-
-app.listen(3000, () => console.log('Server is UP'));
+const http = require('../src/app');
+     
+http.listen(3000, () => console.log('Server is UP'));

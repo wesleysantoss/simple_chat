@@ -13,6 +13,7 @@
 .bg-gradient-roxo {background-image: linear-gradient(to right bottom, #a29bfe, #948bf9, #877cf3, #7a6ced, #6c5ce7);}
 
 .color-roxo-claro-v2 {color: var(--roxo-claro-v2)}
+.color-branco-claro {color: var(--branco-claro)}
 
 .font-1-3{font-size: 1.3rem;}
 
