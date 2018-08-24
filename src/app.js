@@ -36,21 +36,23 @@ app.use(logger('dev'));
 app.use('/', routeSite);
 app.use('/chat', routeChat);
 
-let usersOnline = [];
+const modelUser = require('./models/model-user');
 
 io.on('connection', socket => {
-      socket.on('newUser-client-serve', data => {
-            const {email, message} = data;
-            if(!usersOnline.includes(email)){
-                  socket.broadcast.emit('eventUser-serve-client', message);
-                  usersOnline.push(email);
+      socket.on('newUser-client-serve', async data => {
+            const {email, message} = data,
+                  result           = await modelUser.find({email, status: 1});
+            
+            if(result.length < 1){
+                  await modelUser.findOneAndUpdate({email}, {"status": 1});
+                  socket.broadcast.emit('newUser-serve-client', {email, message});
             }
       });
 
-      socket.on('userLogout-client-serve', data => {
+      socket.on('logoutUser-client-serve', async data => {
             const {email, message} = data;
-            usersOnline = usersOnline.filter(e => e != email);
-            socket.broadcast.emit('eventUser-serve-client', message);
+            socket.broadcast.emit('logoutUser-serve-client', {email, message});
+            await modelUser.findOneAndUpdate({email}, {"status": 0});
       })
 })
 

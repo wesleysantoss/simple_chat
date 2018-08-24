@@ -11,21 +11,18 @@
 <body class="bg-gradient-roxo">
     <div class="container bg-preto-claro">
         <div class="row" id="conteudo">
-            <div class="col-md-2 list-user p-0">
+            <div class="col-md-3 list-user p-0">
                 <div class="font-1-2 bg-preto-claro-v2 p-2">
                     <p class="m-0 text-center font-1-3 color-roxo-claro-v2">Usuários</p>
                 </div>
                 
-                <ul>
-                    <li>Wesley</li>
-                    <li>João</li>
-                </ul>
+                <ul id="list-users"></ul>
 
                 <div class="col-md-12 div-bottom">
                     <a href="/chat/logout" id="btn-logout" class="btn btn-danger btn-lg btn-block">Sair</a>
                 </div>
             </div>
-            <div class="col-md-10">
+            <div class="col-md-9">
                 <div class="row">
                     <div class="col-md-12 bg-preto-claro-v2 p-2">
                         <p class="m-0 text-center font-1-3 color-branco-claro">Bem vindo(a), <span id="name-user-logged"><%= name %></span>. <small>(<span id="email-user-logged"><%= email %></span>)</small></p>
@@ -49,6 +46,7 @@
         </div>
     </div>
     <script src="/socket.io/socket.io.js"></script>
+    <script src="js/utils.js"></script>
     <script src="js/chat/chat.js"></script>
 </body>
 </html>

@@ -20,6 +20,8 @@ module.exports = {
                 }else{
                     req.session.email = email;
                     req.session.name  = user[0].name;
+                    res.cookie('email', email);
+                    res.cookie('name', user[0].name);
                     res.send({status: "success", message: "successful login"});
                 }
             }else{
