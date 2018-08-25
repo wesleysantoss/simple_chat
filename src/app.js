@@ -36,7 +36,8 @@ app.use(logger('dev'));
 app.use('/', routeSite);
 app.use('/chat', routeChat);
 
-const modelUser = require('./models/model-user');
+const modelUser    = require('./models/model-user'),
+      modelHistory = require('./models/model-history');
 
 io.on('connection', socket => {
       socket.on('newUser-client-serve', async data => {
@@ -53,6 +54,15 @@ io.on('connection', socket => {
             const {email, message} = data;
             socket.broadcast.emit('logoutUser-serve-client', {email, message});
             await modelUser.findOneAndUpdate({email}, {"status": 0});
+      })
+
+      socket.on('newMessage-client-serve', async data => {
+            const {email, name, message} = data;
+            const history = new modelHistory({sentByEmail: email, message});
+
+            await history.save();
+            socket.broadcast.emit('newMessage-serve-client', {name, message});
+            socket.emit('newMessage-serve-client', {name, message});
       })
 })
 

@@ -34,7 +34,13 @@ module.exports = {
     allUsers: async (req, res, next) => {
         try {
             const users = await modelUser.find();
-            res.send({status: "success", message: users});
+            const arrayOrderUsers = users.sort((a,b) => {
+                if (a.name > b.name) return 1;
+                if (a.name < b.name) return -1;
+                return 0;
+            });
+
+            res.send({status: "success", message: arrayOrderUsers});
         } catch (err) {
             res.send({status: "error", message: err});
         }

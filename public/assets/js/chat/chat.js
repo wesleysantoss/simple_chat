@@ -4,9 +4,11 @@ const socket            = io(),
       $domContainerChat = document.querySelector('#container-chat'),
       $btnLogout        = document.querySelector('#btn-logout'),
       $domConteudo      = document.querySelector('#conteudo'),
-      $domListUsers     = document.querySelector('#list-users');
+      $domListUsers     = document.querySelector('#list-users'),
+      $btnSendMessage   = document.querySelector('#btn-send-message'),
+      $domMessage       = document.querySelector('#message');
 
-// functions
+// FUNCTIONS
 const heightadjustment = () => $domConteudo.style.height = `${window.innerHeight}px`;
 // ------------------------------------------------------------------------------------------------------
 const eventNewUser = data => {
@@ -79,7 +81,21 @@ const getAllUser = async () => {
         alert(`Oops, ocorreu algum erro. Tente novamente mais tarde`);
     }
 }
-// events dom.
+// ------------------------------------------------------------------------------------------------------
+const setMessageDom = data => {
+    let div = document.createElement('div');
+    div.classList.add('col-md-12');
+    let html = `
+    <div class="p-2 mt-2 other-message">
+        <p class="m-0 font-weight-bold"><span>${(data.name === getCookie('name') ? 'Você' : data.name)}</span> diz:</p>
+        <p class="m-0">
+            ${data.message}
+        </p>
+    </div>`;
+    div.innerHTML = html;
+    $domContainerChat.appendChild(div);
+}
+// EVENTS DOM
 window.onload = () => {
     heightadjustment();
     socket.emit('newUser-client-serve', {name: getCookie('name'), email: getCookie('email'), message:`${getCookie('name')} acabou de entrar`});
@@ -90,8 +106,18 @@ window.onload = () => {
 $btnLogout.addEventListener('click', () => {
     socket.emit('logoutUser-client-serve', {name: getCookie('name'), email: getCookie('email'), message:`${getCookie('name')} acabou de sair`})}
 )
-// listen events io.
-socket.on('newUser-serve-client', data => eventNewUser(data));
 // ------------------------------------------------------------------------------------------------------
-socket.on('logoutUser-serve-client', data => eventLogoutUser(data));
+$domMessage.addEventListener('keyup', e => e.keyCode === 13 && $btnSendMessage.click())
+// ------------------------------------------------------------------------------------------------------
+$btnSendMessage.addEventListener('click', () => {
+    const message = $domMessage.value;
+    socket.emit('newMessage-client-serve', {name: getCookie('name'), email: getCookie('email'), message});
+    $domMessage.value = '';
+})
+// LISTEN EVENTS IO
+socket.on('newUser-serve-client', data => eventNewUser(data))
+// ------------------------------------------------------------------------------------------------------
+socket.on('logoutUser-serve-client', data => eventLogoutUser(data))
+// ------------------------------------------------------------------------------------------------------
+socket.on('newMessage-serve-client', data => setMessageDom(data))
 // ------------------------------------------------------------------------------------------------------
