@@ -39,6 +39,7 @@ app.use('/chat', routeChat);
 const modelUser    = require('./models/model-user'),
       modelHistory = require('./models/model-history');
 
+// Events io.
 io.on('connection', socket => {
       socket.on('newUser-client-serve', async data => {
             const {email, message} = data,
