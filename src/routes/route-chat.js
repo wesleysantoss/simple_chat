@@ -13,6 +13,8 @@ const verifyLogin = (req, res, next) => {
 }
 
 router.get('/', verifyLogin, controllerChat.index);
+router.post('/authenticate', controllerChat.authenticate);
+router.get('/history', controllerChat.AllHistory);
 router.get('/logout', controllerChat.logout);
 
 module.exports = router;

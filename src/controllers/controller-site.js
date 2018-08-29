@@ -1,77 +1,37 @@
 'use strict';
 
+require('./utils');
 const modelUser = require('../models/model-user'),
       bcrypt    = require('bcrypt');
 
 module.exports = {
-    index: (req, res, next) => res.render('site'),
-    register: (req, res, next) => res.render('site/register'),
-    authenticate: async (req, res, next) => {
-        const {email, password} = req.body;
+    index: (req, res, next) => res.status(200).render('site'),
+    register: (req, res, next) => res.status(200).render('site/register'),
+    allUsers: handlerError(async (req, res, next) => {
+        const users = await modelUser.find();
+        const arrayOrderUsers = users.sort((a,b) => {
+            if (a.name > b.name) return 1;
+            if (a.name < b.name) return -1;
+            return 0;
+        });
 
-        try {
-            const user = await modelUser.find({email});
+        res.status(200).send({status: "success", message: arrayOrderUsers});
+    }),
+    createUser: handlerError(async (req, res, next) => {
+        let user         = new modelUser(req.body),
+            {password}   = req.body,
+            hashPassword = await bcrypt.hash(password, 10);
 
-            if(user.length) {
-                const result = await bcrypt.compare(password, user[0].password);
-
-                if(!result) {
-                    res.send({status: "error", message: "incorrect password"});
-                }else{
-                    req.session.email = email;
-                    req.session.name  = user[0].name;
-                    res.cookie('email', email);
-                    res.cookie('name', user[0].name);
-                    res.send({status: "success", message: "successful login"});
-                }
-            }else{
-                res.send({status: "error", message: "not found user"});
-            }
-        } catch (err) {
-            res.send({status: "error", message: err});
-        }
-    },
-    allUsers: async (req, res, next) => {
-        try {
-            const users = await modelUser.find();
-            const arrayOrderUsers = users.sort((a,b) => {
-                if (a.name > b.name) return 1;
-                if (a.name < b.name) return -1;
-                return 0;
-            });
-
-            res.send({status: "success", message: arrayOrderUsers});
-        } catch (err) {
-            res.send({status: "error", message: err});
-        }
-    },
-    createUser: async (req, res, next) => {
-        try {
-            let user         = new modelUser(req.body),
-                {password}   = req.body,
-                hashPassword = await bcrypt.hash(password, 10);
-
-            user.password = hashPassword;
-            await user.save();
-            res.send({status: "success", message: 'user created'});
-        } catch (err) {
-            res.send({status: "error", message: err});
-        }
-    },
-    editUser: async (req, res, next) => {
-        try {
-            await modelUser.findByIdAndUpdate(req.params.id, req.body);
-            res.send({status: "success", message: 'edited user'});
-        } catch (err) {
-            res.send({status: "error", message: err});
-        }
-    },
-    deleteUser: async (req, res, next) => {
-        try {
-            await modelUser.findByIdAndRemove(req.params.id);
-            res.send({status: "success", message: 'deleted user'});
-        } catch (err) {
-            res.send({status: "error", message: err});
-        }
-    }
+        user.password = hashPassword;
+        await user.save();
+        res.status(201).send({status: "success", message: 'user created'});
+    }),
+    editUser: handlerError(async (req, res, next) => {
+        await modelUser.findByIdAndUpdate(req.params.id, req.body);
+        res.status(200).send({status: "success", message: 'edited user'});
+    }),
+    deleteUser: handlerError(async (req, res, next) => {
+        await modelUser.findByIdAndRemove(req.params.id);
+        res.status(200).send({status: "success", message: 'deleted user'});
+    })
 }
