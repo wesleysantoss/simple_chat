@@ -9,13 +9,16 @@ const socket            = io(),
       $domMessage       = document.querySelector('#message');
 
 // FUNCTIONS
-const heightadjustment = () => $domConteudo.style.height = `${window.innerHeight}px`;
+const heightadjustment = () =>  {
+    $domConteudo.style.height = `${window.innerHeight}px`;
+    $domContainerChat.style.maxHeight = `${window.innerHeight - 170}px`;
+}
 // ------------------------------------------------------------------------------------------------------
 const eventNewUser = data => {
     let div = document.createElement('div');
     let html = `
         <div class="p-2 mt-2 other-message">
-            <p class="m-0 font-weight-bold color-verde-claro">${data.message}</p>
+            <p class="m-0 font-weight-bold color-green-light">${data.message}</p>
         </div>
     `;
 
@@ -25,8 +28,8 @@ const eventNewUser = data => {
     
     $domListUsers.childNodes.forEach(e => {
         if(e.dataset.email === data.email){
-            e.classList.remove('color-cinza-claro');
-            e.classList.add('color-verde-claro');
+            e.classList.remove('color-grey-light');
+            e.classList.add('color-green-light');
         }
     });
 }
@@ -35,7 +38,7 @@ const eventLogoutUser = data => {
     let div = document.createElement('div');
     let html = `
         <div class="p-2 mt-2 other-message">
-            <p class="m-0 font-weight-bold color-vermelho-claro">${data.message}</p>
+            <p class="m-0 font-weight-bold color-red-light">${data.message}</p>
         </div>
     `;
 
@@ -45,8 +48,8 @@ const eventLogoutUser = data => {
     
     $domListUsers.childNodes.forEach(e => {
         if(e.dataset.email === data.email){
-            e.classList.remove('color-verde-claro');
-            e.classList.add('color-cinza-claro');
+            e.classList.remove('color-green-light');
+            e.classList.add('color-grey-light');
         }
     });
 }
@@ -67,7 +70,7 @@ const getAllUser = async () => {
                 const {email, name, status} = e;
                 
                 let li     = document.createElement('li'),
-                    classe = (status) ? 'color-verde-claro' : 'color-cinza-claro';
+                    classe = (status) ? 'color-green-light' : 'color-grey-light';
 
                 li.innerHTML = `${name} <small>(${email})</small>`;
                 li.dataset.email = email;
@@ -94,6 +97,7 @@ const setMessageDom = data => {
     </div>`;
     div.innerHTML = html;
     $domContainerChat.appendChild(div);
+    $domContainerChat.scrollTop = $domContainerChat.scrollHeight;
 }
 // EVENTS DOM
 window.onload = () => {

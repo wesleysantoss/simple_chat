@@ -7,29 +7,33 @@
     <title>Simple Chat - Cadastro</title>
 
     <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="bg-gradient-purple">
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                <div class="jumbotron mt-5">
-                    <form action="/user" method="post" id="form-register">
-                        <h3>Cadastre-se!</h3>
-                        <p>Preencha o cadastro abaixo e comece agora mesmo :D</p>
-                        <div class="form-group">
-                            <label for="name">Nome</label>
-                            <input type="text" class="form-control" id="name" placeholder="Insira seu nome">
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" class="form-control" id="email" placeholder="Insira seu e-mail">
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Senha</label>
-                            <input type="password" class="form-control" id="password" placeholder="Escolha uma senha">
-                        </div>
-                        <button type="submit" class="btn btn-success">Cadastrar</button>
-                    </form>
+            <div class="col-md-12 d-flex justify-content-end">
+                <div class="col-md-4 bg-purple-light-v2 box-shadow" id="content-register">
+                    <div class="mt-5">
+                        <form action="/user" method="post" id="form-register">
+                            <h3 class="text-center color-white-light font-weight-400">Cadastre-se!</h3>
+                            <p class="text-center color-purple-light-v3 font-weight-400">Preencha o cadastro abaixo e comece agora mesmo :D</p>
+                            <div class="form-group">
+                                <label for="name" class="text-center color-white-light font-weight-400">Nome</label>
+                                <input type="text" class="form-control input-v1" id="name">
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="text-center color-white-light font-weight-400">Email</label>
+                                <input type="email" class="form-control input-v1" id="email">
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="text-center color-white-light font-weight-400">Senha</label>
+                                <input type="password" class="form-control input-v1" id="password">
+                            </div>
+                            <button type="submit" class="btn btn-success btn-block">Cadastrar</button>
+                            <p class="text-center"><a href="/">Já tenho uma conta</a></p>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

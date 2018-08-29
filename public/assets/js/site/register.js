@@ -1,17 +1,24 @@
 'use strict';
 
-const $formRegister = document.querySelector('#form-register');
+const $formRegister    = document.querySelector('#form-register'),
+      $contentRegister = document.querySelector('#content-register');
+
+// FUNCTIONS
+const heightadjustment = () => $contentRegister.style.height = `${window.innerHeight}px`;
+
+// EVENTS
+window.onload = heightadjustment;
 
 // -----------------------------------------------------------------------------------
 $formRegister.addEventListener("submit", async function(e){
     e.preventDefault();
+
     const action    = $formRegister.getAttribute('action'),
           method    = $formRegister.getAttribute('method'),
           name      = document.querySelector("#name").value,
           email     = document.querySelector("#email").value,
           password  = document.querySelector("#password").value,
           body      = JSON.stringify({name, email, password});
-
 
     const request = {
         method,
@@ -28,7 +35,8 @@ $formRegister.addEventListener("submit", async function(e){
 
         if(resultJson.status === 'error') {
             alert('Oops, ocorreu algum erro. Tente novamente mais tarde');
-        }else{
+        }
+        else{
             alert('Cadastro realizado com sucesso');
             window.location = "/";
         }

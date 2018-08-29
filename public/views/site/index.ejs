@@ -6,26 +6,29 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Simple Chat - Login</title>
     <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="bg-gradient-purple">
     <div class="container">
-        <div class="row d-flex justify-content-end">
-            <div class="col-md-5">
-                <div class="jumbotron mt-5">
-                    <form action="/chat/authenticate" method="post" id="form-login">
-                        <h3 class="text-center">LOGIN</h3>
-                        <p class="text-center">Se conecte agora mesmo :D</p>
-                        <div class="form-group">
-                            <label for="name">E-mail</label>
-                            <input type="text" class="form-control" id="email" placeholder="Insira seu e-mail">
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Senha</label>
-                            <input type="password" class="form-control" id="password" placeholder="Escolha uma senha">
-                        </div>
-                        <button type="submit" class="btn btn-success float-right">Entrar</button>
-                        <a href="/register">Cadastre-se</a>
-                    </form>
+        <div class="row">
+            <div class="col-md-12 d-flex justify-content-end">
+                <div class="col-md-4 bg-purple-light-v2 box-shadow" id="conteudo-login">
+                    <div class="mt-5">
+                        <form action="/chat/authenticate" method="post" id="form-login">
+                            <h3 class="text-center color-white-light font-weight-400">LOGIN</h3>
+                            <p class="text-center color-purple-light-v3 font-weight-400">Se conecte agora mesmo :D</p>
+                            <div class="form-group">
+                                <label for="name" class="color-white-light font-weight-400">E-mail</label>
+                                <input type="text" class="form-control input-v1 " id="email">
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="color-white-light font-weight-400">Senha</label>
+                                <input type="password" class="form-control input-v1 " id="password">
+                            </div>
+                            <button type="submit" class="btn btn-success btn-block">Entrar</button>
+                            <p class="text-center color-white-light font-weight-400">Ainda não tem uma conta? :o <br> Então <a href="/register">Cadastre-se</a> \o/</p>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

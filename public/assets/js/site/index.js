@@ -1,7 +1,13 @@
 'use strict';
 
-const $formLogin = document.querySelector("#form-login");
+const $formLogin     = document.querySelector("#form-login"),
+      $conteudoLogin = document.querySelector("#conteudo-login");
 
+// FUNCTIONS
+const heightadjustment = () => $conteudoLogin.style.height = `${window.innerHeight}px`;
+
+// EVENTS
+window.onload = heightadjustment;
 // -----------------------------------------------------------------------------------
 $formLogin.addEventListener("submit", async function(e){
     e.preventDefault();
@@ -28,11 +34,11 @@ $formLogin.addEventListener("submit", async function(e){
         
         if(resultJson.status === 'success'){
             window.location = "/chat";
-        }else{
+        }
+        else{
             alert(`Oops, usuário ou senha incorreto, tente novamente`);
         }
     } catch (e){
-        console.log(e);
         alert(`Oops, ocorreu algum erro. Tente novamente mais tarde`);
     }
 })
