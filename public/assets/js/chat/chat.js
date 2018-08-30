@@ -15,6 +15,7 @@ const heightadjustment = () =>  {
 }
 // ------------------------------------------------------------------------------------------------------
 const eventNewUser = data => {
+    getAllUser();
     let div = document.createElement('div');
     let html = `
         <div class="p-2 mt-2 other-message">
@@ -25,13 +26,6 @@ const eventNewUser = data => {
     div.classList.add('col-md-12');
     div.innerHTML = html;
     $domContainerChat.appendChild(div);
-    
-    $domListUsers.childNodes.forEach(e => {
-        if(e.dataset.email === data.email){
-            e.classList.remove('color-grey-light');
-            e.classList.add('color-green-light');
-        }
-    });
 }
 // ------------------------------------------------------------------------------------------------------
 const eventLogoutUser = data => {
