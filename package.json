@@ -1,10 +1,10 @@
 {
   "name": "SimpleChat",
   "version": "1.0.0",
-  "description": "",
+  "description": "Simple chat of studies",
   "main": "index.js",
   "scripts": {
-    "start": "node config/server.js",
+    "start": "nodemon config/server.js",
     "test": ""
   },
   "keywords": [],
@@ -20,5 +20,8 @@
     "mongoose": "^5.2.8",
     "morgan": "^1.9.0",
     "socket.io": "^2.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.4"
   }
 }
