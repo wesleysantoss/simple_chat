@@ -7,7 +7,7 @@ const socket            = io(),
       $domListUsers     = document.querySelector('#list-users'),
       $btnSendMessage   = document.querySelector('#btn-send-message'),
       $domMessage       = document.querySelector('#message');
-
+// ------------------------------------------------------------------------------------------------------
 // FUNCTIONS
 const heightadjustment = () =>  {
     $domConteudo.style.height = `${window.innerHeight}px`;
@@ -93,7 +93,8 @@ const setMessageDom = data => {
     $domContainerChat.appendChild(div);
     $domContainerChat.scrollTop = $domContainerChat.scrollHeight;
 }
-// EVENTS DOM
+// ------------------------------------------------------------------------------------------------------
+// EVENTS DOM 
 window.onload = () => {
     heightadjustment();
     socket.emit('newUser-client-serve', {name: getCookie('name'), email: getCookie('email'), message:`${getCookie('name')} acabou de entrar`});
@@ -108,7 +109,9 @@ $btnLogout.addEventListener('click', () => {
 $domMessage.addEventListener('keyup', e => e.keyCode === 13 && $btnSendMessage.click())
 // ------------------------------------------------------------------------------------------------------
 $btnSendMessage.addEventListener('click', () => {
-    const message = $domMessage.value;
+    let message = $domMessage.value;
+    const regex = /(<[^>]+>|<[^>]>|<\/[^>]>)/g;
+    message = message.replace(regex , '');
     socket.emit('newMessage-client-serve', {name: getCookie('name'), email: getCookie('email'), message});
     $domMessage.value = '';
 })
