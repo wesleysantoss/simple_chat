@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Simple Chat</title>
-    <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../../bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
 </head>
 <body class="bg-gradient-purple">
     <div class="container bg-purple-light-v2 box-shadow">
@@ -28,6 +28,7 @@
                 </div>
             </div>
             <div class="col-md-9">
+                <div>Conversa com: <b><%= user.name %></b></div>
                 <div class="row" id="container-chat" style="overflow: auto">
 
                 </div>
@@ -41,7 +42,7 @@
         </div>
     </div>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="js/utils.js"></script>
-    <script src="js/chat/chat.js"></script>
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/chat/chat-private.js"></script>
 </body>
 </html>

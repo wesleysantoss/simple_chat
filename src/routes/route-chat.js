@@ -14,6 +14,7 @@ const verifyLogin = (req, res, next) => {
 
 router.get('/', verifyLogin, controllerChat.index);
 router.post('/authenticate', controllerChat.authenticate);
+router.get('/chat-private/:email', verifyLogin, controllerChat.chatPrivate);
 router.get('/history', controllerChat.AllHistory);
 router.get('/logout', controllerChat.logout);
 

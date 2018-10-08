@@ -9,6 +9,12 @@ module.exports = {
     index: (req, res, next) => {
         res.status(200).render('chat', {email: req.session.email, name: req.session.name});
     },
+    chatPrivate: handlerError(async (req, res, next) => {
+        const email = req.params.email;
+        const user  = await modelUser.find({email});
+
+        res.status(200).render('chat/chat-private', {user: user[0]});
+    }),
     authenticate: handlerError(async (req, res, next) => {
         const {email, password} = req.body;
         const user = await modelUser.find({email});
@@ -36,5 +42,5 @@ module.exports = {
     logout: async (req, res, next) => {
         await req.session.destroy();
         res.redirect('/');
-    },
+    }
 }

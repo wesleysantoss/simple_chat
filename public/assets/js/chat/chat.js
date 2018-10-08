@@ -66,7 +66,8 @@ const getAllUser = async () => {
                 let li     = document.createElement('li'),
                     classe = (status) ? 'color-green-light' : 'color-grey-light';
 
-                li.innerHTML = `${name} <small>(${email})</small>`;
+                li.innerHTML = (getCookie('email') === email) ? `<a>${name} <small>(Você)</small></a>` : `<a href="/chat/chat-private/${email}">${name} <small>(${email})</small></a>`;
+
                 li.dataset.email = email;
                 li.classList.add(classe);
                 $domListUsers.appendChild(li);
